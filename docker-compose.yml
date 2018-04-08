@@ -1,0 +1,27 @@
+version: '3'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: discord_bot_server
+    expose:
+      - "7632"
+    tty: true
+    restart: always
+    volumes:
+      - ./src:/app/src:z
+      - ./public:/app/public:z
+      - ./config:/app/config:z
+      - ./vendor:/app/vendor:z
+      - ./composer.json:/app/composer.json:z
+    links: 
+      - broker
+  broker:
+    image: rabbitmq:3.7-alpine
+    container_name: discord_bot_broker
+    expose:
+      - "4369"
+      - "5671"
+      - "5672"
+      - "25672"

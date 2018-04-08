@@ -1,0 +1,5 @@
+vendor/
+config/*
+config/*.local.php
+config/*.php
+!config/*.global.php
