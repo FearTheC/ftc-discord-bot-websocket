@@ -34,6 +34,8 @@ class Bot
     
     private $config;
     
+    private $sequence = null;
+    
     
     public function __construct(
         $config,
@@ -69,10 +71,30 @@ class Bot
     {
         $intervalInSeconds = $heartbeatsInterval / 1000;
         $this->loop->addPeriodicTimer($intervalInSeconds, function(Timer $timer) {
-            $this->connection->send(json_encode(['op' => 1, 'd' => ['token' => $this->config['discord']['token']]]));
+            $this->connection->send(json_encode(['op' => 1, 'd' => $this->sequence]));
+            echo 'Sent heartbeat, sequence was '.$this->sequence.PHP_EOL;
         });
     }
     
+    public function updateSequence($sequence)
+    {
+        $this->sequence = $sequence;
+    }
+    
+    public function resume($sessionId, $sequence)
+    {
+        $payload = [
+            'token' => $this->config['discord']['token'],
+            'session_id' => $sessionId,
+            'seq' => $sequence,
+        ];
+        $mess = [
+            'op' => 6,
+            'd' => $payload,
+        ];
+        
+        $this->connection->send(json_encode($mess));
+    }
     
     public function identify()
     {
@@ -106,6 +128,11 @@ class Bot
     public function setConnection(WebSocket $connection)
     {
         $this->connection = $connection;
+    }
+    
+    public function closeConnection()
+    {
+        $this->connection->close();
     }
     
     private function retrieveBaseUri()

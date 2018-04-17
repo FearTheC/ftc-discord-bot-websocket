@@ -1,7 +1,12 @@
 <?php
 
 return [
-  'discord' => [
-    'token' => '',
-  ]
+    'discord' => [
+        'token' => '',
+    ],
+    'cache' => [
+        'server' => '',
+        'timeout' => 2,
+        'version' => '',
+    ],
 ];

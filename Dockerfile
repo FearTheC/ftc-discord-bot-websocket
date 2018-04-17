@@ -20,10 +20,8 @@ COPY ./public/ /app/public/
 COPY ./config/ /app/config/
 COPY ./composer.* /app/
 
-RUN composer update
+RUN composer install -o
 
-RUN ls /app 
-    
 RUN rm -rf /var/cache/apk/*
 
-CMD ["php-fpm"]
+CMD ["php", "/app/public/run.php"]
