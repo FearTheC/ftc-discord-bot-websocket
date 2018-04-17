@@ -14,8 +14,10 @@ services:
       - ./config:/app/config:z
       - ./vendor:/app/vendor:z
       - ./composer.json:/app/composer.json:z
+      - ./composer.lock:/app/composer.lock:z
     links: 
       - broker
+      - cache
     command: sh
   broker:
     image: rabbitmq:3.7-alpine
