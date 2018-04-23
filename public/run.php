@@ -78,7 +78,7 @@ $app = function (WebSocket $conn) use ($loop, &$app, $bot, $channel, $cacheConn)
         }
         
         if ($response['d']) {
-            $mess = new AMQPMessage(json_encode(['event' => $response['t'], 'data' => $response['d']]), ['delevery_mode' => 2]);
+            $mess = new AMQPMessage(json_encode(['event' => $response['t'], 'data' => $response['d']]), ['delivery_mode' => 2]);
             $channel->basic_publish($mess, '', 'hello');
         }
         
