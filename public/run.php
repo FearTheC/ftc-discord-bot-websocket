@@ -36,7 +36,7 @@ echo 'Broker service started up'.PHP_EOL;
 
 $brokerConn = new AMQPStreamConnection($brokerHost, $brokerPort, 'guest', 'guest');
 $channel = $brokerConn->channel();
-$channel->queue_declare('hello', false, false, false, false);
+$channel->queue_declare('hello', false, true, false, false);
 
 $cacheHost = 'cache';
 $cachePort = 6379;
@@ -59,7 +59,6 @@ $app = function (WebSocket $conn) use ($loop, &$app, $bot, $channel, $cacheConn)
     $conn->on('message', function (MessageInterface $msg) use ($conn, $loop, $bot, $channel, $cacheConn) {
         echo "Received: {$msg}\n";
         $response = json_decode($msg, true);
-        
         if ($response['op'] == 9) {
             $sleepTime = rand(1,5);
             echo "Invalid resume or identify, waiting ".$sleepTime."s to reconnect".PHP_EOL;
@@ -79,7 +78,7 @@ $app = function (WebSocket $conn) use ($loop, &$app, $bot, $channel, $cacheConn)
         }
         
         if ($response['d']) {
-            $mess = new AMQPMessage(json_encode(['event' => $response['t'], 'data' => $response['d']]));
+            $mess = new AMQPMessage(json_encode(['event' => $response['t'], 'data' => $response['d']]), ['delevery_mode' => 2]);
             $channel->basic_publish($mess, '', 'hello');
         }
         
