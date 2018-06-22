@@ -14,40 +14,48 @@ use RedisClient\ClientFactory;
 use RedisClient\RedisClient;
 
 chdir(dirname(__DIR__));
-
+var_dump(getmyuid(), getmygid());
 require 'vendor/autoload.php';
-$config = include 'config/app.php';
+$discordConfig = include '/app/config/bot.local.php';
+$brokerConfig = include '/app/config/broker.local.php';
+$cacheConfig = include '/app/config/cache.local.php';
 
 $httpClient = new Client();
 $loop = React\EventLoop\Factory::create();
 $connector = new Ratchet\Client\Connector($loop);
 
-$bot = new Bot($config, $loop, $connector, $httpClient);
+$bot = new Bot($discordConfig, $loop, $connector, $httpClient);
 
-$brokerHost = 'broker';
-$brokerPort = 5672;
+$brokerConn = getBrokerConnection($brokerConfig['broker']);
+// while (($connection = fsockopen($brokerConfig['host'], $brokerConfig['port'])) === false) {
+//     echo 'Waiting for broker service being reachable...'.PHP_EOL;
+//     sleep(1);
+// }
+// fclose($connection);
+// echo 'Broker service reachable !.'.PHP_EOL;
 
-while (($connection = fsockopen($brokerHost, $brokerPort)) === false) {
-    echo 'Waiting for broker service startup'.PHP_EOL;
-    sleep(1);
-}
-fclose($connection);
-echo 'Broker service started up'.PHP_EOL;
-
-$brokerConn = new AMQPStreamConnection($brokerHost, $brokerPort, 'guest', 'guest');
+// $brokerConn = new AMQPStreamConnection(
+//     $brokerConfig['host'],
+//     $brokerConfig['port'],
+//     $brokerConfig['username'],
+//     $brokerConfig['password']
+// );
 $channel = $brokerConn->channel();
 $channel->queue_declare('hello', false, true, false, false);
 
 $cacheHost = 'cache';
 $cachePort = 6379;
-while (($connection = fsockopen($cacheHost, $cachePort)) === false) {
-    echo 'Waiting for cache service startup'.PHP_EOL;
-    sleep(1);
-}
-fclose($connection);
-echo 'Cache service started up'.PHP_EOL;
 
-$cacheConn = new RedisClient($config['cache']);
+
+$cacheConn = getCacheConnection($cacheConfig['cache']);
+// while (($connection = fsockopen($cacheConfig['cache']['server'].':'.$cacheConfig['cache']['port'], $cacheConfig)) === false) {
+//     echo 'Waiting for cache service being reachable...'.PHP_EOL;
+//     sleep(1);
+// }
+// fclose($connection);
+// echo 'Cache service is reachable !'.PHP_EOL;
+
+// $cacheConn = new RedisClient($cacheConfig['cache']);
 
 if ($seq = $cacheConn->get('last_event_seq')) {
     $bot->updateSequence($seq);
@@ -110,3 +118,32 @@ $bot->run();
 
 $channel->close();
 $brokerConn->close();
+
+function getBrokerConnection($brokerConfig)
+{
+    while (($connection = fsockopen($brokerConfig['host'], $brokerConfig['port'])) === false) {
+        echo 'Waiting for broker service being reachable...'.PHP_EOL;
+        sleep(1);
+    }
+    fclose($connection);
+    echo 'Broker service reachable !.'.PHP_EOL;
+    
+   return new AMQPStreamConnection(
+        $brokerConfig['host'],
+        $brokerConfig['port'],
+        $brokerConfig['username'],
+        $brokerConfig['password']
+        );
+}
+
+function getCacheConnection($config)
+{
+    while (($connection = fsockopen($config['host'], $config['port'])) === false) {
+        echo 'Waiting for cache service being reachable...'.PHP_EOL;
+        sleep(1);
+    }
+    fclose($connection);
+    echo 'Cache service is reachable !'.PHP_EOL;
+    
+    return new RedisClient(['server' => $config['host'].':'.$config['port']]);
+}

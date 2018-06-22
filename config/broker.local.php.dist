@@ -1,0 +1,10 @@
+<?php
+
+return [
+    'broker' => [
+        'host' => '',
+        'username' => '',
+        'password' => '',
+        'port' => '',
+    ],
+];

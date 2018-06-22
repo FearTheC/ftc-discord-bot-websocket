@@ -1,11 +1,9 @@
 <?php
 
 return [
-    'discord' => [
-        'token' => '',
-    ],
     'cache' => [
-        'server' => '',
+        'host' => '',
+        'port' => '',
         'timeout' => 2,
         'version' => '',
     ],

@@ -6,17 +6,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     [[ ! -f "config.m4" && -f "config0.m4" ]] && mv config0.m4 config.m4' \
     /usr/local/bin/docker-php-ext-configure; \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer; \
-    mkdir /app
+    mkdir /app && \
+    rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
-COPY ./src/ /app/src/
-COPY ./public/ /app/public/
-COPY ./config/ /app/config/
-COPY ./composer.* /app/
+COPY . /app/
 
-RUN composer install -o
-
-RUN rm -rf /var/cache/apk/*
-
-CMD ["php", "/app/public/run.php"]
+ENTRYPOINT ["/app/entrypoint.sh"]

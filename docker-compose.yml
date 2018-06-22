@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   client:
     build:
       context: .
@@ -8,17 +9,17 @@ services:
       - "7632"
     tty: true
     restart: always
+    env_file:
+      - .env
     volumes:
-      - ./src:/app/src:z
-      - ./public:/app/public:z
-      - ./config:/app/config:z
-      - ./vendor:/app/vendor:z
-      - ./composer.json:/app/composer.json:z
-      - ./composer.lock:/app/composer.lock:z
+      - .:/app:z
     links: 
       - broker
       - cache
     command: sh
+    networks:
+      default:
+    
   broker:
     image: rabbitmq:3.7-alpine
     expose:
@@ -26,10 +27,20 @@ services:
       - "5671"
       - "5672"
       - "25672"
+    networks:
+      default:
+      
   cache:
     image: redis:alpine
     expose:
       - "6379"
     volumes:
       - ./redis-data:/data:z
+    networks:
+      default:
+      
+networks:
+    default:
+        driver: bridge
+ 
  
