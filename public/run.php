@@ -119,9 +119,9 @@ $bot->run();
 $channel->close();
 $brokerConn->close();
 
-function getBrokerConnection($brokerConfig)
+function getBrokerConnection($config)
 {
-    while (($connection = fsockopen($brokerConfig['host'], $brokerConfig['port'])) === false) {
+    while (($connection = fsockopen($config['host'], $config['port'])) === false) {
         echo 'Waiting for broker service being reachable...'.PHP_EOL;
         sleep(1);
     }
@@ -129,10 +129,10 @@ function getBrokerConnection($brokerConfig)
     echo 'Broker service reachable !.'.PHP_EOL;
     
    return new AMQPStreamConnection(
-        $brokerConfig['host'],
-        $brokerConfig['port'],
-        $brokerConfig['username'],
-        $brokerConfig['password']
+        $config['host'],
+        $config['port'],
+        $config['username'],
+        $config['password']
         );
 }
 

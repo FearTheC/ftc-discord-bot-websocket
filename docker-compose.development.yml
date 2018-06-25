@@ -1,10 +1,12 @@
-version: '3.3'
-
+version: '3.6'
 services:
+
   client:
-    image: qbonaventure/discord-bot-ws:latest
-    ports:
-      - "7632:7632"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "7632"
     tty: true
     restart: always
     env_file:
@@ -15,8 +17,6 @@ services:
       - broker
       - cache
     deploy:
-      labels :
-        ftcbot.service: webservice
       replicas: 1
       restart_policy:
         condition: on-failure
@@ -31,12 +31,7 @@ services:
       - "5672"
       - "25672"
     deploy:
-      labels:
-        ftcbot.service: broker
       replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
       restart_policy:
         condition: on-failure
     networks:
@@ -47,22 +42,16 @@ services:
     expose:
       - "6379"
     volumes:
-      -  webservice-cache-data:/data
+      - ./redis-data:/data:z
     deploy:
-      labels:
-        ftcbot.service: webservice-cache
       replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
       restart_policy:
         condition: on-failure
     networks:
       ftcbot:
       
 networks:
-  ftcbot:
+    ftcbot:
+        driver: bridge
  
-volumes:
-  webservice-cache-data:
  

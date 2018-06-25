@@ -6,7 +6,7 @@ cp -p /app/config/broker.local.php.dist /app/config/broker.local.php
 cp -p /app/config/cache.local.php.dist /app/config/cache.local.php
 
 
-sed -i "s/'token' => ''/'token' => '$FTCBOT_DISCORD_TOKEN'/g" /app/config/bot.local.php
+sed -i "s/'token' => ''/'token' => '$FTCBOT_DISCORD_AUTH_TOKEN'/g" /app/config/bot.local.php
 
 sed -i "s/'host' => ''/'host' => '$FTCBOT_BROKER_HOST'/g" /app/config/broker.local.php
 sed -i "s/'username' => ''/'username' => '$FTCBOT_BROKER_USERNAME'/g" /app/config/broker.local.php
