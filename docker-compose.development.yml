@@ -1,6 +1,6 @@
-version: '3.6'
-services:
+version: '3.3'
 
+services:
   client:
     build:
       context: .
@@ -30,10 +30,6 @@ services:
       - "5671"
       - "5672"
       - "25672"
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
     networks:
       ftcbot:
       
@@ -42,16 +38,13 @@ services:
     expose:
       - "6379"
     volumes:
-      - ./redis-data:/data:z
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+      - redis_data:/data:z
     networks:
       ftcbot:
       
 networks:
     ftcbot:
-        driver: bridge
  
+volumes:
+  redis_data:
  
