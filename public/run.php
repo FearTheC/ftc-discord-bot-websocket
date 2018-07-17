@@ -14,8 +14,9 @@ use RedisClient\ClientFactory;
 use RedisClient\RedisClient;
 
 chdir(dirname(__DIR__));
-var_dump(getmyuid(), getmygid());
+
 require 'vendor/autoload.php';
+
 $discordConfig = include '/app/config/bot.local.php';
 $brokerConfig = include '/app/config/broker.local.php';
 $cacheConfig = include '/app/config/cache.local.php';

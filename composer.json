@@ -7,11 +7,13 @@
 		"zendframework/zend-servicemanager" : "^3.3",
 		"react/socket" : "^0.8.10",
 		"zendframework/zend-config" : "^3.1",
-		"wyrihaximus/react-guzzle-psr7": "^2.0",
-		"ratchet/pawl": "^0.3.1",
-		"cboden/ratchet": "^0.4.1",
-		"php-amqplib/php-amqplib": "^2.7",
-		"cheprasov/php-redis-client": "^1.8"
+		"wyrihaximus/react-guzzle-psr7" : "^2.0",
+		"ratchet/pawl" : "^0.3.1",
+		"cboden/ratchet" : "^0.4.1",
+		"php-amqplib/php-amqplib" : "^2.7",
+		"cheprasov/php-redis-client" : "^1.8",
+		"qbonaventure/discord-model": "dev-master",
+		"qbonaventure/discord-db-postgresql": "dev-master"
 	},
 	"autoload" : {
 		"psr-4" : {

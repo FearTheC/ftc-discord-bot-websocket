@@ -13,25 +13,21 @@ services:
       - .env
     volumes:
       - .:/app:z
-    links: 
-      - broker
-      - cache
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
     networks:
-      ftcbot:
+      - ftcbot_dev
     
   broker:
     image: rabbitmq:3.7-alpine
     expose:
       - "4369"
       - "5671"
-      - "5672"
       - "25672"
+    ports:
+      - "5672:5672"
     networks:
-      ftcbot:
+      ftcbot_dev:
+        aliases:
+          - broker
       
   cache:
     image: redis:alpine
@@ -40,10 +36,11 @@ services:
     volumes:
       - redis_data:/data:z
     networks:
-      ftcbot:
+      ftcbot_dev:
       
 networks:
-    ftcbot:
+  ftcbot_dev:
+    external: true
  
 volumes:
   redis_data:

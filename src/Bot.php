@@ -111,7 +111,7 @@ class Bot
             'op' => 2,
             'd' => $payload,
         ];
-        var_dump($mess);
+
         $this->connection->send(json_encode($mess));
     }
     
