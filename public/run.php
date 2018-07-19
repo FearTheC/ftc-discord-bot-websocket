@@ -12,9 +12,9 @@ chdir(dirname(__DIR__));
 
 require 'vendor/autoload.php';
 
-$discordConfig = include 'config/bot.local.php';
-$brokerConfig = include 'config/broker.local.php';
-$cacheConfig = include 'config/cache.local.php';
+$discordConfig = require 'config/bot.local.php';
+$brokerConfig = require 'config/broker.local.php';
+$cacheConfig = require 'config/cache.local.php';
 
 $httpClient = new Client();
 $loop = React\EventLoop\Factory::create();
