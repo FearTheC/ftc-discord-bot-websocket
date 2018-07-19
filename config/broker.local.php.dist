@@ -5,6 +5,6 @@ return [
         'host' => getenv('FTCBOT_BROKER_HOST'),
         'username' => getenv('FTCBOT_BROKER_USERNAME'),
         'password' => getenv('FTCBOT_BROKER_PASSWORD'),
-        'port' => getenv('FTCBOT_BROKER_PORTD'),
+        'port' => getenv('FTCBOT_BROKER_PORT'),
     ],
 ];
