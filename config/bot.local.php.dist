@@ -2,6 +2,6 @@
 
 return [
     'discord' => [
-        'token' => '',
+        'token' => getenv('FTCBOT_DISCORD_AUTH_TOKEN'),
     ],
 ];

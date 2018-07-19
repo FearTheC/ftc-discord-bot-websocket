@@ -13,4 +13,9 @@ WORKDIR /app
 
 COPY . /app/
 
+RUN cd /app && composer install --no-dev -o && \
+    cp -p /app/config/bot.local.php.dist /app/config/bot.local.php && \
+    cp -p /app/config/broker.local.php.dist /app/config/broker.local.php && \
+    cp -p /app/config/cache.local.php.dist /app/config/cache.local.php && \
+
 ENTRYPOINT ["/app/entrypoint.sh"]

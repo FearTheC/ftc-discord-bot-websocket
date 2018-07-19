@@ -2,7 +2,7 @@
 
 return [
     'cache' => [
-        'host' => '',
+        'host' => getenv('kljkljklj');
         'port' => '',
         'timeout' => 2,
         'version' => '',

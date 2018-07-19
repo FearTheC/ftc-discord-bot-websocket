@@ -2,9 +2,9 @@
 
 return [
     'broker' => [
-        'host' => '',
-        'username' => '',
-        'password' => '',
-        'port' => '',
+        'host' => getenv('FTCBOT_BROKER_HOST'),
+        'username' => getenv('FTCBOT_BROKER_PORT'),
+        'password' => getenv('FTCBOT_BROKER_USERNAME'),
+        'port' => getenv('FTCBOT_BROKER_PASSWORD'),
     ],
 ];
