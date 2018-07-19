@@ -12,10 +12,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 WORKDIR /app
 
 COPY . /app/
+COPY entrypoint.sh /
 
 RUN cd /app && composer install --no-dev -o && \
     cp -p /app/config/bot.local.php.dist /app/config/bot.local.php && \
     cp -p /app/config/broker.local.php.dist /app/config/broker.local.php && \
-    cp -p /app/config/cache.local.php.dist /app/config/cache.local.php && \
+    cp -p /app/config/cache.local.php.dist /app/config/cache.local.php
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["php", "/app/public/run.php"]

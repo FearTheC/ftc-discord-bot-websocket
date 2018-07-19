@@ -2,15 +2,14 @@ version: '3.3'
 
 services:
   client:
-    image: qbonaventure/discord-bot-ws:latest
+#    image: qbonaventure/discord-bot-ws:latest
+    image: discord-bot-ws-test
     ports:
       - "7632:7632"
     tty: true
     restart: always
     env_file:
       - .env
-    volumes:
-      - .:/app:z
     links: 
       - broker
       - cache
