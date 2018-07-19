@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use GuzzleHttp\Client;
 use Ratchet\Client\WebSocket;
 use FtcDiscordBot\Bot;
