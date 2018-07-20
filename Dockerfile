@@ -15,8 +15,8 @@ COPY . /app/
 COPY entrypoint.sh /
 
 RUN cd /app && composer install --no-dev -o && \
-    cp -p /app/config/bot.local.php.dist /app/config/bot.local.php && \
-    cp -p /app/config/broker.local.php.dist /app/config/broker.local.php && \
-    cp -p /app/config/cache.local.php.dist /app/config/cache.local.php
+    cp -pf /app/config/bot.local.php.dist /app/config/bot.local.php && \
+    cp -pf /app/config/broker.local.php.dist /app/config/broker.local.php && \
+    cp -pf /app/config/cache.local.php.dist /app/config/cache.local.php
 
 ENTRYPOINT ["/entrypoint.sh"]

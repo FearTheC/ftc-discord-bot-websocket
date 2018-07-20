@@ -12,7 +12,7 @@ services:
       - .env
     links: 
       - broker
-      - cache
+      - websocket-cache
     deploy:
       labels :
         ftcbot.service: webservice
@@ -41,7 +41,7 @@ services:
     networks:
       ftcbot:
       
-  cache:
+  websocket-cache:
     image: redis:alpine
     expose:
       - "6379"
@@ -49,7 +49,7 @@ services:
       -  webservice-cache-data:/data
     deploy:
       labels:
-        ftcbot.service: webservice-cache
+        ftcbot.service: websocket-cache
       replicas: 1
       placement:
         constraints:

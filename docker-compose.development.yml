@@ -29,7 +29,7 @@ services:
         aliases:
           - broker
       
-  cache:
+  websocket-cache:
     image: redis:alpine
     expose:
       - "6379"
