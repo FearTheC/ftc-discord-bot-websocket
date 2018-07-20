@@ -2,8 +2,7 @@ version: '3.3'
 
 services:
   client:
-#    image: qbonaventure/discord-bot-ws:latest
-    image: discord-bot-ws-test
+    image: qbonaventure/discord-bot-ws:latest
     ports:
       - "7632:7632"
     tty: true
@@ -46,7 +45,7 @@ services:
     expose:
       - "6379"
     volumes:
-      -  webservice-cache-data:/data
+      -  websocket_cache_data:/data
     deploy:
       labels:
         ftcbot.service: websocket-cache
@@ -63,5 +62,5 @@ networks:
   ftcbot:
  
 volumes:
-  webservice-cache-data:
+  websocket_cache_data:
  
