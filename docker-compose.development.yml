@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.6'
 
 services:
   client:
@@ -26,8 +26,6 @@ services:
       - "5672:5672"
     networks:
       ftcbot_dev:
-        aliases:
-          - broker
       
   websocket-cache:
     image: redis:alpine
