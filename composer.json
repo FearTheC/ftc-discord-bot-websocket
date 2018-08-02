@@ -1,5 +1,5 @@
 {
-	"name" : "qbonaventure/discordbot",
+	"name" : "fearthec/ftc-discord-bot-websocket",
 	"type" : "project",
 	"license" : "MIT",
 	"require" : {
@@ -12,8 +12,8 @@
 		"cboden/ratchet" : "^0.4.1",
 		"php-amqplib/php-amqplib" : "^2.7",
 		"cheprasov/php-redis-client" : "^1.8",
-		"qbonaventure/discord-model": "dev-master",
-		"qbonaventure/discord-db-postgresql": "dev-master"
+		"fearthec/ftc-discord-model": "dev-master",
+		"fearthec/ftc-discord-db-postgresql": "dev-master"
 	},
 	"autoload" : {
 		"psr-4" : {
