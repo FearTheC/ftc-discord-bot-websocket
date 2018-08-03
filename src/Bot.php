@@ -98,6 +98,7 @@ class Bot
     
     public function identify()
     {
+        printf($this->config['discord']['token']);
         $payload = [
             'token' => $this->config['discord']['token'],
             'properties' => [

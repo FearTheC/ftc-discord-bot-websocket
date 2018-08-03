@@ -2,9 +2,9 @@
 
 return [
     'cache' => [
-        'host' => getenv('FTCBOT_WEBSOCKET_CACHE_HOST'),
-        'port' => getenv('FTCBOT_WEBSOCKET_CACHE_PORT'),
+        'host' => trim(getenv('FTCBOT_WEBSOCKET_CACHE_HOST')),
+        'port' => trim(getenv('FTCBOT_WEBSOCKET_CACHE_PORT')),
         'timeout' => 2,
-        'version' => getenv('FTCBOT_WEBSOCKET_CACHE_VERSION'),
+        'version' => trim(getenv('FTCBOT_WEBSOCKET_CACHE_VERSION')),
     ],
 ];

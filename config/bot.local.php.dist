@@ -2,6 +2,6 @@
 
 return [
     'discord' => [
-        'token' => getenv('FTCBOT_DISCORD_AUTH_TOKEN'),
+        'token' => file_get_contents('/run/secrets/ftcbot-discord-auth-token'), // The Discord bot token,
     ],
 ];
