@@ -2,7 +2,8 @@
 PHP Websocket connecting to Discord server for guilds' events retrieval. As it simply stacks
 up events messages into a message queue service (such as RabbitMQ).
 
-![Fear The C{ode}](https://docs.fearthec.io/images/ftc-logo.png)
+
+<img src="https://docs.fearthec.io/images/ftc-logo.png" alt="Fear The C{ode}" width="400">
 
 # Installation
 
